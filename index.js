@@ -452,6 +452,9 @@ app.get('/monthly-dues', async (req, res) => {
 });
 
 
+app.get("/test", (req, res) => {
+  return "Successfully Deployed!"
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
