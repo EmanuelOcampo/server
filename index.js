@@ -99,7 +99,7 @@ Firebase Admin SDK to create a new user with the provided email and password. If
 successfully, it sends a response to the client with the user's unique ID (UID). If there is an
 error during the process, it sends an error response with the error message. */
 app.post('/signup', async (req, res) => {
-  const { fullname, email, password, isAdmin } = req.body;
+  const { fullname, email, address , password, isAdmin } = req.body;
   try {
     if (!fullname) {
       return res.status(400).send({ message: 'Full name is required' });
@@ -114,6 +114,7 @@ app.post('/signup', async (req, res) => {
     // Save the user's profile information in Firestore
     await db.collection('users').doc(userRecord.uid).set({
       userFullname: fullname,
+      address: address,
       isAdmin: isAdmin,
     });
 
