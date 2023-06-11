@@ -134,7 +134,6 @@ to the client with a success message. If there is an error during the process, i
 response with the error message. */
 app.post('/make-appointment', async (req, res) => {
   const { email, phoneNumber, appointmentTime, message, appointmentStatus } = req.body;
-  appointmentStatus="pending"
   try {
     const appointment = {
       email,
