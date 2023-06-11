@@ -134,6 +134,7 @@ to the client with a success message. If there is an error during the process, i
 response with the error message. */
 app.post('/make-appointment', async (req, res) => {
   const { email, phoneNumber, appointmentTime, message, appointmentStatus } = req.body;
+
   try {
     const appointment = {
       email,
@@ -195,6 +196,26 @@ app.get('/get-appointments', async (req, res) => {
 });
 
 
+//this is to get done appointments 
+// we can make this is only 1 collection as appointments
+// suggest is to add status in only one end-points like there are completed , accepted  and pending for default
+// i try to add status so next patch or version make this only in one collection.
+
+app.get('/get-done-appointments', async (req, res) => {
+  try {
+    const snapshot = await admin.firestore().collection('done-appointments').get();
+    const appointments = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+    res.json(appointments);
+  } catch (error) {
+    console.error('Error fetching appointments:', error);
+    res.status(500).json({ message: 'Error fetching appointments' });
+  }
+});
+
+
 /* The below code is defining an endpoint for a POST request to move an appointment from the
 "appointments" collection to the "done-appointments" collection in Firestore. The endpoint expects a
 request body with an appointment ID and additional fields to be added to the appointment data. If
@@ -215,7 +236,6 @@ app.post('/move-appointment', async (req, res) => {
       res.status(404).json({ message: 'Appointment not found' });
       return;
     }
-
     const appointmentData = appointmentSnapshot.data();
 
     // Add the appointment to the "completed-appointments" collection
