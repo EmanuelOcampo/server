@@ -133,14 +133,15 @@ these details and saves it to the Firestore database with a unique ID. Finally, 
 to the client with a success message. If there is an error during the process, it sends an error
 response with the error message. */
 app.post('/make-appointment', async (req, res) => {
-  const { email, phoneNumber, appointmentTime, message } = req.body;
-
+  const { email, phoneNumber, appointmentTime, message, appointmentStatus } = req.body;
+  appointmentStatus="pending"
   try {
     const appointment = {
       email,
       phoneNumber,
       appointmentTime,
-      message
+      message,
+      appointmentStatus
     };
 
     // Save the appointment to Firestore with a unique ID
