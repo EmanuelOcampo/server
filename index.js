@@ -154,6 +154,27 @@ app.post('/make-appointment', async (req, res) => {
   }
 });
 
+//this is for contact us page
+app.post('/contact-us', async (req, res) => {
+  const { email, message } = req.body;
+
+  try {
+    const appointment = {
+      email,
+      message, 
+    };
+
+    // Save the appointment to Firestore with a unique ID
+    const appointmentRef = await admin.firestore().collection('contact-us').doc();
+    await appointmentRef.set(appointment);
+    
+    res.status(201).json({ message: 'contact us successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
 
 // Define the API endpoint to retrieve the user's fullname
 app.get('/userFullname', async (req, res) => {
@@ -194,7 +215,6 @@ app.get('/get-appointments', async (req, res) => {
     res.status(500).json({ message: 'Error fetching appointments' });
   }
 });
-
 
 //this is to get done appointments 
 // we can make this is only 1 collection as appointments
