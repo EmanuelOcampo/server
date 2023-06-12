@@ -1,7 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const admin = require('firebase-admin');
-const serviceAccount = require('./celina-plains-firebase-adminsdk-chhjg-899b477033.json'); 
+const serviceAccount = require('./celina-plains-45b6c-firebase-adminsdk-qpt5e-7cd382359b.json'); 
+// const serviceAccount = require('./celina-plains-firebase-adminsdk-chhjg-899b477033.json'); 
 const { v4: uuidv4 } = require('uuid');
 
 // Initialize Firebase Admin SDK
